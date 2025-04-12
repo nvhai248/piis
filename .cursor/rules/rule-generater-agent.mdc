@@ -1,0 +1,93 @@
+description: This rule is essential for maintaining consistency and quality in rule creation across the Flutter + Supabase codebase. It must be followed whenever: (1) A developer requests a new rule to be created, (2) An existing rule requires modification, (3) Certain Flutter or Supabase-specific behavior patterns should be remembered, or (4) Future behavioral updates are requested. This rule ensures proper structure, clear documentation, and effective rule application across Dart files, Supabase integrations, and Flutter UI/state logic. It's crucial for maintaining a well-organized rule hierarchy, ensuring rule discoverability by the agent, and preserving the effectiveness of AI-driven automation across mobile development.
+globs: 
+alwaysApply: true
+---
+
+# Cursor Rules Format (Flutter + Supabase)
+
+## Template Structure for Rules Files
+
+```mdc
+---
+description: `Comprehensive description that provides full context and clearly indicates when this rule should be applied. Include key scenarios, impacted areas, and why following this rule is important. The description should be detailed enough that the agent can confidently determine whether to apply the rule in any given situation.`
+globs: .cursor/rules/**/*.mdc OR blank
+alwaysApply: {true or false}
+---
+
+# Rule Title
+
+## Critical Rules
+
+- Concise, bulleted list of actionable rules the agent MUST follow
+
+## Examples
+
+<example>
+  {valid rule application}
+</example>
+
+<example type="invalid">
+  {invalid rule application}
+</example>
+```
+
+### Organizational Folders (Create if non-existent)
+All rules files must be placed in one of these organizational folders (or create new as needed):
+
+- `.cursor/rules/core-rules` – Meta rules related to Cursor or rule generation
+- `.cursor/rules/flutter-rules` – Rules related to Flutter-specific conventions (e.g., widgets, state mgmt)
+- `.cursor/rules/supabase-rules` – Rules for Supabase integration (auth, queries, client init, etc.)
+- `.cursor/rules/dart-rules` – Dart language rules (naming, structure, etc.)
+- `.cursor/rules/testing-rules` – Rules around widget tests, integration tests, etc.
+- `.cursor/rules/ui-rules` – UI, UX, and component rules
+- `.cursor/rules/my-rules` – Rules specific to you only (gitignored)
+- `.cursor/rules/global-rules` – Rules that apply to *every* chat or cmd/ctrl-k
+- `.cursor/rules/tool-rules` – Tool-specific rules (e.g., flutterfire CLI, supabase CLI)
+
+> You can add new folders under `.cursor/rules/` as needed following the same grouping convention. For example, if you're adding FlutterFire-specific logic, create `.cursor/rules/flutterfire-rules`.
+
+## Glob Pattern Examples (Flutter + Supabase)
+
+- Flutter views and widgets: `lib/**/*.dart`
+- Supabase services or integration: `lib/services/supabase/**.dart`
+- State management files: `lib/bloc/**`, `lib/providers/**`, `lib/cubit/**`
+- Model definitions: `lib/models/**.dart`
+- Flutter test files: `test/**/*.dart`
+- UI component conventions: `lib/components/**/*.dart`
+- Routing / app architecture: `lib/app/**`
+
+## Critical Rules
+
+- Rule files **must be named and located** as: `.cursor/rules/{org-folder}/rule-name-{auto|agent|manual|always}.mdc`
+- Rule files will **never** be placed outside of `.cursor/rules/**`
+- Before creating a rule, always check if a related one already exists under any `.cursor/rules` folder
+- FrontMatter Types:
+  - **Manual Rule**: `description` and `globs` must be blank, `alwaysApply: false`, filename ends with `-manual.mdc`
+  - **Auto Rule**: Applied to globbed files, `description` must be blank, `alwaysApply: false`, filename ends with `-auto.mdc`
+  - **Always Rule**: Loaded in all contexts, `description` and `globs` blank, `alwaysApply: true`, filename ends with `-always.mdc`
+  - **Agent Rule**: Scoped to specific use cases (e.g., auth logic, query patterns), requires a detailed `description`, `globs` blank, `alwaysApply: false`, filename ends with `-agent.mdc`
+- Use **concise, directive-based Markdown**, tailored to the AI’s token limits and decision-making needs
+- If `alwaysApply` is false, provide detailed enough `description` so the agent knows exactly when to apply the rule
+- Use proper indentation inside `<example>` sections (2 spaces)
+- Always include **valid and invalid examples**
+- Never use **quotes** around glob patterns
+- Never group globs using `{}` (write each separately)
+- Emojis and diagrams are allowed if helpful
+- Do not bloat rules—be essential and focused for clarity and performance
+- When a rule is created due to a mistake or correction, reflect that context in examples
+
+## Examples
+
+<example>
+  File: `.cursor/rules/flutter-rules/widget-state-init-agent.mdc`  
+  - Applies to: Custom widgets where state needs initialization  
+  - Description: Describes when and why to use `initState()` properly  
+  - Includes: Valid usage of `initState()` in a `StatefulWidget`, and invalid where state is initialized in the wrong place
+</example>
+
+<example type="invalid">
+  File: `lib/rules/widget-init-rule.md`  
+  ❌ Invalid location — must be inside `.cursor/rules/**`  
+  ❌ Incorrect naming — should follow `*-agent.mdc`  
+  ❌ No frontmatter block  
+</example>

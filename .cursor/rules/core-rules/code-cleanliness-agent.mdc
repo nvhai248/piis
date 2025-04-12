@@ -1,0 +1,24 @@
+---
+description: This rule should be applied to all codebases. It ensures that any code generated or edited follows clean code principles: meaningful naming, useful comments, and readable formatting. Apply this rule across Dart, Flutter, and any business logic or component.
+globs: 
+alwaysApply: false
+---
+
+# Clean Code and Naming
+
+## Critical Rules
+
+- Use meaningful and descriptive variable/function/class names
+- Avoid abbreviations unless commonly accepted
+- Write comments where needed, especially for non-obvious logic
+- Keep function length reasonable (split into helpers when needed)
+
+## Examples
+
+<example>
+  Named method `fetchUserProfile()` instead of `getData()`; explained logic behind fallback with inline comment
+</example>
+
+<example type="invalid">
+  Used `x`, `y`, `foo`, `bar` in all function/variable names; left large methods uncommented
+</example>

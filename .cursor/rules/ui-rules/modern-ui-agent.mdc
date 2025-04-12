@@ -1,0 +1,24 @@
+---
+description: Use this rule when generating any user interface. It ensures visual comfort, modern UI patterns, and responsiveness across devices. This rule applies to both web and mobile Flutter interfaces. Prioritize layout spacing, visual hierarchy, and modern color usage.
+globs: 
+alwaysApply: true
+---
+
+# Modern and Responsive UI
+
+## Critical Rules
+
+- Use modern and accessible color schemes
+- Layout should be visually comfortable and balanced
+- Ensure full responsiveness (mobile, tablet, desktop)
+- Avoid hard-coded dimensions; prefer `Flexible`, `Expanded`, or media queries
+
+## Examples
+
+<example>
+  Used responsive layout with `LayoutBuilder` and `MediaQuery` to build a mobile-first dashboard UI with modern colors
+</example>
+
+<example type="invalid">
+  Hard-coded container widths and default Material colors on every widget, causing broken layout on smaller screens
+</example>

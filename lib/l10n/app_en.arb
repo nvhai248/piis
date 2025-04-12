@@ -1,0 +1,123 @@
+{
+    "appTitle": "Pet Care",
+    "@appTitle": {
+        "description": "The name of the application"
+    },
+    "home": "Home",
+    "pets": "Pets",
+    "services": "Services",
+    "profile": "Profile",
+    "settings": "Settings",
+    
+    "addPet": "Add Pet",
+    "editPet": "Edit Pet",
+    "petName": "Pet Name",
+    "petNameRequired": "Pet name is required",
+    "petType": "Pet Type",
+    "otherPetType": "Other Pet Type",
+    "otherPetTypeRequired": "Please specify the pet type",
+    "birthDate": "Birth Date",
+    "color": "Color",
+    "weight": "Weight",
+    "height": "Height",
+    "breed": "Breed",
+    "create": "Create",
+    "update": "Update",
+    "petAge": "Age",
+    "petWeight": "Pet Weight",
+    
+    "darkMode": "Dark Mode",
+    "language": "Language",
+    "english": "English",
+    "vietnamese": "Vietnamese",
+    
+    "upcomingServices": "Upcoming Services",
+    "nearbyFacilities": "Nearby Facilities",
+    "recentActivities": "Recent Activities",
+    
+    "loading": "Loading...",
+    "noServicesTitle": "Exploring Services",
+    "noServicesSubtitle": "Discovering great services for your pet",
+    
+    "logout": "Logout",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "helpAndSupport": "Help & Support",
+    "privacyPolicy": "Privacy Policy",
+    "email": "Email",
+    "@email": {
+        "description": "Email label"
+    },
+    "password": "Password",
+    "@password": {
+        "description": "Password label"
+    },
+    "confirmPassword": "Confirm Password",
+    "@confirmPassword": {
+        "description": "Confirm password label"
+    },
+    "login": "Login",
+    "@login": {
+        "description": "Login button text"
+    },
+    "register": "Register",
+    "@register": {
+        "description": "Register button text"
+    },
+    "signInWithGoogle": "Sign in with Google",
+    "@signInWithGoogle": {
+        "description": "Google sign in button text"
+    },
+    "noAccount": "Don't have an account? ",
+    "@noAccount": {
+        "description": "No account text"
+    },
+    "emailRequired": "Email is required",
+    "@emailRequired": {
+        "description": "Email required error message"
+    },
+    "emailInvalid": "Please enter a valid email",
+    "@emailInvalid": {
+        "description": "Invalid email error message"
+    },
+    "passwordRequired": "Password is required",
+    "@passwordRequired": {
+        "description": "Password required error message"
+    },
+    "passwordTooShort": "Password must be at least 6 characters",
+    "@passwordTooShort": {
+        "description": "Password too short error message"
+    },
+    "fullName": "Full Name",
+    "@fullName": {
+        "description": "Full name label"
+    },
+    "fullNameRequired": "Full name is required",
+    "@fullNameRequired": {
+        "description": "Full name required error message"
+    },
+    "passwordsDoNotMatch": "Passwords do not match",
+    "@passwordsDoNotMatch": {
+        "description": "Passwords do not match error message"
+    },
+    "loginErrorInvalidCredentials": "The email or password you entered is incorrect. Please try again.",
+    "loginErrorNetwork": "Unable to connect to the server. Please check your internet connection.",
+    "loginErrorTooManyRequests": "Too many login attempts. Please wait a few minutes before trying again.",
+    "loginErrorInvalidEmail": "Please enter a valid email address.",
+    "loginErrorUserNotFound": "No account found with this email. Please check your email or create a new account.",
+    "loginErrorGoogleServices": "Unable to connect to Google services. Please check your internet connection.",
+    "loginErrorGoogleCancelled": "Google sign-in was cancelled. Please try again.",
+    "loginErrorGeneric": "Something went wrong. Please try again later.",
+    "loginConnectingGoogle": "Connecting to Google...",
+    "loginWelcomeBack": "Welcome back, {name}! 👋",
+    "confirmPasswordRequired" : "Please enter confirm password!",
+    "loginErrorUserExists" : "This user is already existed!",
+    "loginErrorWeakPassword" : "Password so week!",
+    "petBreed" : "Pet breed",
+    "editProfile" : "Edit profile",
+    "removePhoto" : "Remove photo",
+    "phoneNumber" : "Phone number",
+    "invalidPhoneNumber" : "Invalid phone number"
+} 

@@ -1,0 +1,24 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+## Core Rules
+
+You operate in two modes:
+
+1. **Plan mode**: You work with the user to define and validate a plan. You'll gather all necessary information and share your plan before making any changes.
+2. **Act mode**: You implement codebase changes based on the previously agreed plan.
+
+### Updated Workflow:
+
+- You can perform both **plan** and **act** steps **in a single request** if explicitly allowed by the user or if the context clearly requires it.
+- By default, always begin in **Plan mode**, marked by `# Mode: PLAN`.
+- When you're about to perform any actions, indicate the transition with `# Mode: ACT`.
+- After completing the action, you can automatically return to Plan mode unless specified otherwise.
+
+### Important Notes:
+- If the user explicitly says `PLAN`, remain only in planning mode.
+- If the user explicitly says `ACT`, skip planning and perform the requested action.
+- Always make it clear when switching between modes by using the respective markers.
+- Continue printing the **full updated plan** when in Plan mode, even if Plan and Act happen together.

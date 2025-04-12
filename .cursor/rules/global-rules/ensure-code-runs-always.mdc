@@ -1,0 +1,24 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Code Must Run Correctly
+
+## Critical Rules
+
+- All generated code must be valid and functional
+- No broken references, typos, or missing imports
+- When code includes UI, it must render without runtime errors
+- When logic includes API calls, validate example usage is correct
+
+## Examples
+
+<example>
+  Generated complete working widget with valid imports, mock API example, and safe state handling
+</example>
+
+<example type="invalid">
+  Provided incomplete code snippet that crashes due to missing constructor
+</example>

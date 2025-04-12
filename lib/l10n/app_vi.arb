@@ -1,0 +1,123 @@
+{
+    "appTitle": "Ứng dụng Chăm sóc Thú cưng",
+    "@appTitle": {
+        "description": "The name of the application"
+    },
+    "home": "Trang chủ",
+    "pets": "Thú cưng",
+    "services": "Dịch vụ",
+    "profile": "Hồ sơ",
+    "settings": "Cài đặt",
+    
+    "addPet": "Thêm Thú Cưng",
+    "editPet": "Chỉnh Sửa Thú Cưng",
+    "petName": "Tên Thú Cưng",
+    "petNameRequired": "Vui lòng nhập tên thú cưng",
+    "petType": "Loại Thú Cưng",
+    "otherPetType": "Loại Thú Cưng Khác",
+    "otherPetTypeRequired": "Vui lòng chỉ định loại thú cưng",
+    "birthDate": "Ngày Sinh",
+    "color": "Màu Sắc",
+    "weight": "Cân Nặng",
+    "height": "Chiều Cao",
+    "breed": "Giống",
+    "create": "Tạo Mới",
+    "update": "Cập Nhật",
+    
+    "darkMode": "Chế độ tối",
+    "language": "Ngôn ngữ",
+    "english": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt",
+    
+    "upcomingServices": "Dịch vụ sắp tới",
+    "nearbyFacilities": "Cơ Sở Gần Đây",
+    "recentActivities": "Hoạt động gần đây",
+    
+    "loading": "Đang tải...",
+    "noServicesTitle": "Khám Phá Dịch Vụ",
+    "noServicesSubtitle": "Tìm kiếm dịch vụ tốt nhất cho thú cưng của bạn",
+    
+    "logout": "Đăng xuất",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "confirm": "Xác Nhận",
+    "helpAndSupport": "Trợ giúp & Hỗ trợ",
+    "privacyPolicy": "Chính sách bảo mật",
+    "email": "Email",
+    "@email": {
+        "description": "Email label"
+    },
+    "password": "Mật khẩu",
+    "@password": {
+        "description": "Password label"
+    },
+    "confirmPassword": "Xác nhận mật khẩu",
+    "@confirmPassword": {
+        "description": "Confirm password label"
+    },
+    "login": "Đăng nhập",
+    "@login": {
+        "description": "Login button text"
+    },
+    "register": "Đăng ký",
+    "@register": {
+        "description": "Register button text"
+    },
+    "signInWithGoogle": "Đăng nhập với Google",
+    "@signInWithGoogle": {
+        "description": "Google sign in button text"
+    },
+    "noAccount": "Chưa có tài khoản? ",
+    "@noAccount": {
+        "description": "No account text"
+    },
+    "emailRequired": "Vui lòng nhập email",
+    "@emailRequired": {
+        "description": "Email required error message"
+    },
+    "emailInvalid": "Vui lòng nhập email hợp lệ",
+    "@emailInvalid": {
+        "description": "Invalid email error message"
+    },
+    "passwordRequired": "Vui lòng nhập mật khẩu",
+    "@passwordRequired": {
+        "description": "Password required error message"
+    },
+    "passwordTooShort": "Mật khẩu phải có ít nhất 6 ký tự",
+    "@passwordTooShort": {
+        "description": "Password too short error message"
+    },
+    "fullName": "Họ và tên",
+    "@fullName": {
+        "description": "Full name label"
+    },
+    "fullNameRequired": "Vui lòng nhập họ và tên",
+    "@fullNameRequired": {
+        "description": "Full name required error message"
+    },
+    "passwordsDoNotMatch": "Mật khẩu không khớp",
+    "@passwordsDoNotMatch": {
+        "description": "Passwords do not match error message"
+    },
+    "loginErrorInvalidCredentials": "Email hoặc mật khẩu không chính xác. Vui lòng thử lại.",
+    "loginErrorNetwork": "Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối internet của bạn.",
+    "loginErrorTooManyRequests": "Quá nhiều lần đăng nhập thất bại. Vui lòng đợi vài phút trước khi thử lại.",
+    "loginErrorInvalidEmail": "Vui lòng nhập địa chỉ email hợp lệ.",
+    "loginErrorUserNotFound": "Không tìm thấy tài khoản với email này. Vui lòng kiểm tra email hoặc tạo tài khoản mới.",
+    "loginErrorGoogleServices": "Không thể kết nối đến dịch vụ Google. Vui lòng kiểm tra kết nối internet của bạn.",
+    "loginErrorGoogleCancelled": "Đăng nhập Google đã bị hủy. Vui lòng thử lại.",
+    "loginErrorGeneric": "Đã xảy ra lỗi. Vui lòng thử lại sau.",
+    "loginConnectingGoogle": "Đang kết nối với Google...",
+    "loginWelcomeBack": "Chào mừng trở lại, {name}! 👋",
+    "confirmPasswordRequired" : "Làm ơn nhập vào ô này!",
+    "loginErrorUserExists" : "Tài khoản này đã tồn tại!",
+    "loginErrorWeakPassword" : "Mật khẩu yếu!",
+    "petAge" : "Tuổi thú cưng",
+    "petWeight" : "Cân nặng thú cưng",
+    "petBreed" : "Giống loài",
+    "editProfile" : "Cập nhật thông tin",
+    "removePhoto" : "Xóa ảnh",
+    "phoneNumber" : "Số điện thoại",
+    "invalidPhoneNumber" : "Số điện thoại không hợp lệ"
+} 

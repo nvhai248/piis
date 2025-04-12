@@ -1,0 +1,23 @@
+---
+description: Use this rule in any Flutter logic that calls APIs, handles async operations, or performs risky business logic. This rule ensures the app remains stable and that exceptions are always properly handled.
+globs: 
+alwaysApply: false
+---
+
+# Exception Handling in Flutter
+
+## Critical Rules
+
+- Always use `try/catch` when calling external services
+- Log or surface meaningful errors (toasts, dialogs, logs)
+- Don’t expose raw exceptions to users
+
+## Examples
+
+<example>
+  Wrapped Supabase API call in try/catch and showed a snackbar with a friendly error message
+</example>
+
+<example type="invalid">
+  Called `.from('table').select()` with no error handling; crash occurred when offline
+</example>

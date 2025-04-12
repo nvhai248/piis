@@ -1,0 +1,31 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Apply All Relevant Rules
+
+## Critical Rules
+
+- Always check for applicable rules across all `.cursor/rules/**` folders before generating code or giving suggestions
+- Apply **every rule** that matches by filename, description, or glob pattern
+- When generating code or fixing bugs, **ensure consistency** by checking:
+  - Code style and naming conventions
+  - Folder and file structure patterns
+  - Exception handling logic
+  - UI/UX responsiveness and modern design
+  - Dependency management instructions
+  - Clean comments and readability
+- If a rule includes both a `description` and examples, use that context to make a confident decision
+- Never ignore existing rules in `.cursor/rules/` — always respect them
+
+## Examples
+
+<example>
+  A user asks for a new Supabase auth widget → agent checks `supabase-rules`, `flutter-rules`, `ui-rules`, and `core-rules` and applies component structure, error handling, and modern UI rules
+</example>
+
+<example type="invalid">
+  Agent generates code without applying naming rules, no exception handling, and forgets to check folder placement conventions from `flutter-rules`
+</example>

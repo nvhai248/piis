@@ -1,0 +1,24 @@
+---
+description: Apply this rule whenever generating or refactoring a Flutter component to ensure code is modular, scalable, and easy to maintain. Use this for any widget, view, or UI module. The rule helps enforce best practices in structuring UI logic, enabling component reuse and maintainability.
+globs: 
+alwaysApply: true
+---
+
+# Flutter Component Structure
+
+## Critical Rules
+
+- Divide widgets into small, reusable components
+- Avoid placing too much logic in a single file
+- Organize folders clearly (e.g., `components/`, `views/`, `screens/`)
+- Keep UI and logic separated (use services, state mgmt)
+
+## Examples
+
+<example>
+  Created `UserProfileWidget` and extracted `Avatar`, `Bio`, and `StatsCard` as subcomponents in `components/`
+</example>
+
+<example type="invalid">
+  Wrote a single `UserProfileScreen` with 500+ lines, mixing business logic and UI in the same file
+</example>

@@ -1,0 +1,23 @@
+---
+description: Use this rule when fixing bugs related to dependency issues or project bootstrapping. Always ensure the CLI instructions are complete and accurate. Applies to Flutter, Dart, Supabase CLI, and any required toolchain for the project.
+globs: 
+alwaysApply: false
+---
+
+# Fixing Dependencies and Setup Issues
+
+## Critical Rules
+
+- Include every needed CLI step (e.g., `flutter pub get`, `dart run build_runner`)
+- Clearly describe what was changed and why
+- If new tools are needed, mention installation
+
+## Examples
+
+<example>
+  When adding `freezed`, included `flutter pub add freezed_annotation` and `flutter pub run build_runner build`
+</example>
+
+<example type="invalid">
+  Only updated `pubspec.yaml` but did not mention required code generation step, resulting in broken build
+</example>
