@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -33,6 +34,7 @@ class _PetFormScreenState extends State<PetFormScreen> {
   PetType _selectedType = PetType.dog;
   DateTime? _birthDate;
   bool _isLoading = false;
+  String? _imageError;
 
   @override
   void initState() {
@@ -79,9 +81,13 @@ class _PetFormScreenState extends State<PetFormScreen> {
       if (image != null) {
         setState(() {
           _imageFile = File(image.path);
+          _imageError = null;
         });
       }
     } catch (error) {
+      setState(() {
+        _imageError = 'Failed to pick image';
+      });
       if (mounted) {
         MessageUtils.showMessage(
           context,
@@ -100,15 +106,30 @@ class _PetFormScreenState extends State<PetFormScreen> {
       lastDate: DateTime.now(),
     );
 
-    if (picked != null) {
+    if (picked != null && mounted) {
       setState(() {
         _birthDate = picked;
       });
     }
   }
 
+  bool _validateForm() {
+    if (!_formKey.currentState!.validate()) return false;
+    
+    if (_birthDate == null) {
+      MessageUtils.showMessage(
+        context,
+        message: AppLocalizations.of(context)!.birthDateRequired,
+        type: MessageType.error,
+      );
+      return false;
+    }
+
+    return true;
+  }
+
   Future<void> _handleSubmit() async {
-    if (!_formKey.currentState!.validate()) return;
+    if (!_validateForm()) return;
 
     setState(() => _isLoading = true);
 
@@ -129,9 +150,9 @@ class _PetFormScreenState extends State<PetFormScreen> {
           'birthday_day': _birthDate!.day,
         },
         if (_weightController.text.isNotEmpty)
-          'weight': int.parse(_weightController.text),
+          'weight': int.tryParse(_weightController.text),
         if (_heightController.text.isNotEmpty)
-          'height': int.parse(_heightController.text),
+          'height': int.tryParse(_heightController.text),
         if (_classifyController.text.isNotEmpty)
           'pet_classify': _classifyController.text.trim(),
         if (_selectedType == PetType.other && _anotherTypeController.text.isNotEmpty)
@@ -171,8 +192,8 @@ class _PetFormScreenState extends State<PetFormScreen> {
         MessageUtils.showMessage(
           context,
           message: widget.pet != null
-              ? 'Pet updated successfully'
-              : 'Pet created successfully',
+              ? AppLocalizations.of(context)!.petUpdatedSuccess
+              : AppLocalizations.of(context)!.petCreatedSuccess,
           type: MessageType.success,
         );
         Navigator.pop(context, updatedPet);
@@ -181,7 +202,9 @@ class _PetFormScreenState extends State<PetFormScreen> {
       if (mounted) {
         MessageUtils.showMessage(
           context,
-          message: 'Failed to ${widget.pet != null ? 'update' : 'create'} pet. Please try again.',
+          message: widget.pet != null
+              ? AppLocalizations.of(context)!.petUpdateError
+              : AppLocalizations.of(context)!.petCreateError,
           type: MessageType.error,
         );
       }
@@ -227,6 +250,11 @@ class _PetFormScreenState extends State<PetFormScreen> {
                                 ? DecorationImage(
                                     image: NetworkImage(widget.pet!.mainPicture!),
                                     fit: BoxFit.cover,
+                                    onError: (_, __) {
+                                      setState(() {
+                                        _imageError = 'Failed to load image';
+                                      });
+                                    },
                                   )
                                 : null,
                       ),
@@ -257,6 +285,17 @@ class _PetFormScreenState extends State<PetFormScreen> {
                   ],
                 ),
               ),
+              if (_imageError != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Text(
+                    _imageError!,
+                    style: TextStyle(
+                      color: theme.colorScheme.error,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
               const SizedBox(height: 24),
 
               // Pet Name
@@ -347,6 +386,18 @@ class _PetFormScreenState extends State<PetFormScreen> {
                   suffixText: 'kg',
                 ),
                 keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+                validator: (value) {
+                  if (value != null && value.isNotEmpty) {
+                    final weight = int.tryParse(value);
+                    if (weight == null || weight <= 0) {
+                      return l10n.invalidWeight;
+                    }
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16),
 
@@ -359,6 +410,18 @@ class _PetFormScreenState extends State<PetFormScreen> {
                   suffixText: 'cm',
                 ),
                 keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+                validator: (value) {
+                  if (value != null && value.isNotEmpty) {
+                    final height = int.tryParse(value);
+                    if (height == null || height <= 0) {
+                      return l10n.invalidHeight;
+                    }
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16),
 

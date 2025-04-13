@@ -96,29 +96,35 @@ class AuthService {
   }
 
   Future<UserProfile> getCurrentProfile() async {
-    final user = currentUser;
+    final userResponse = await supabase.auth.getUser();
+    final user = userResponse.user;
+
     if (user == null) throw Exception('User not authenticated');
 
-    try {
-      final response = await supabase
-          .from('profiles')
-          .select()
-          .eq('id', user.id)
-          .single();
-      
-      return UserProfile.fromJson(response);
-    } catch (error) {
-      // If profile doesn't exist, create one from user data
-      return UserProfile.fromUser(user);
-    }
+    final metadata = user.userMetadata ?? {};
+    final now = DateTime.now().toUtc();
+
+    final profileData = {
+      'id': user.id,
+      'email': user.email ?? '',
+      'full_name': metadata['full_name'] ?? '',
+      'phone_number': metadata['phone_number'],
+      'avatar_url': metadata['avatar_url'],
+      'created_at': now.toIso8601String(),
+      'updated_at': now.toIso8601String(),
+    };
+
+    return UserProfile.fromJson(profileData);
   }
+
 
   Future<UserProfile> updateProfile({
     String? fullName,
     String? phoneNumber,
     File? avatarFile,
   }) async {
-    final user = currentUser;
+    final userResponse = await supabase.auth.getUser();
+    final user = userResponse.user;
     if (user == null) throw Exception('User not authenticated');
 
     try {
@@ -128,25 +134,15 @@ class AuthService {
         final fileName = 'avatar_${DateTime.now().millisecondsSinceEpoch}.$fileExt';
         final filePath = '${user.id}/$fileName';
 
-        // Upload avatar
         await supabase.storage
             .from('avatars')
-            .upload(
-              filePath,
-              avatarFile,
-              fileOptions: const FileOptions(
-                cacheControl: '3600',
-                upsert: true,
-              ),
-            );
+            .upload(filePath, avatarFile, fileOptions: const FileOptions(upsert: true));
 
-        // Get public URL
         avatarUrl = supabase.storage
             .from('avatars')
             .getPublicUrl(filePath);
       }
 
-      // Update user metadata
       await supabase.auth.updateUser(
         UserAttributes(
           data: {
@@ -156,20 +152,6 @@ class AuthService {
           },
         ),
       );
-
-      // Update or insert profile in profiles table
-      final profileData = {
-        'id': user.id,
-        'email': user.email,
-        'full_name': fullName ?? user.userMetadata?['full_name'],
-        'phone_number': phoneNumber ?? user.userMetadata?['phone_number'],
-        'avatar_url': avatarUrl ?? user.userMetadata?['avatar_url'],
-        'updated_at': DateTime.now().toIso8601String(),
-      };
-
-      await supabase
-          .from('profiles')
-          .upsert(profileData);
 
       return getCurrentProfile();
     } catch (error) {

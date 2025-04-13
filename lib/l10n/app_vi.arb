@@ -119,5 +119,20 @@
     "editProfile" : "Cập nhật thông tin",
     "removePhoto" : "Xóa ảnh",
     "phoneNumber" : "Số điện thoại",
-    "invalidPhoneNumber" : "Số điện thoại không hợp lệ"
+    "invalidPhoneNumber" : "Số điện thoại không hợp lệ",
+    "petUpdatedSuccess": "Cập nhật thú cưng thành công",
+    "petCreatedSuccess": "Tạo thú cưng thành công",
+    "petUpdateError": "Không thể cập nhật thú cưng. Vui lòng thử lại.",
+    "petCreateError": "Không thể tạo thú cưng. Vui lòng thử lại.",
+    "birthDateRequired": "Vui lòng chọn ngày sinh",
+    "invalidWeight": "Vui lòng nhập cân nặng hợp lệ",
+    "invalidHeight": "Vui lòng nhập chiều cao hợp lệ",
+    "imagePickError": "Không thể chọn ảnh. Vui lòng thử lại.",
+    "imageLoadError": "Không thể tải ảnh",
+    "noPetsTitle": "Chưa Có Thú Cưng",
+    "noPetsSubtitle": "Thêm thú cưng đầu tiên của bạn để bắt đầu",
+    "retry": "Thử lại",
+    "viewDetails": "Xem chi tiết thú cưng",
+    "errorLoadingPets": "Lỗi tải danh sách thú cưng",
+    "tapToRetry": "Nhấn để thử lại"
 } 

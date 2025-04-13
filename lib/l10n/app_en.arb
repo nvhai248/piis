@@ -119,5 +119,20 @@
     "editProfile" : "Edit profile",
     "removePhoto" : "Remove photo",
     "phoneNumber" : "Phone number",
-    "invalidPhoneNumber" : "Invalid phone number"
+    "invalidPhoneNumber" : "Invalid phone number",
+    "petUpdatedSuccess": "Pet updated successfully",
+    "petCreatedSuccess": "Pet created successfully",
+    "petUpdateError": "Failed to update pet. Please try again.",
+    "petCreateError": "Failed to create pet. Please try again.",
+    "birthDateRequired": "Birth date is required",
+    "invalidWeight": "Please enter a valid weight",
+    "invalidHeight": "Please enter a valid height",
+    "imagePickError": "Failed to pick image. Please try again.",
+    "imageLoadError": "Failed to load image",
+    "noPetsTitle": "No Pets Yet",
+    "noPetsSubtitle": "Add your first pet to get started",
+    "retry": "Retry",
+    "viewDetails": "View pet details",
+    "errorLoadingPets": "Error loading pets",
+    "tapToRetry": "Tap to retry"
 } 
