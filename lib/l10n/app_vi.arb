@@ -134,5 +134,20 @@
     "retry": "Thử lại",
     "viewDetails": "Xem chi tiết thú cưng",
     "errorLoadingPets": "Lỗi tải danh sách thú cưng",
-    "tapToRetry": "Nhấn để thử lại"
+    "tapToRetry": "Nhấn để thử lại",
+    
+    "vaccineHistory": "Lịch sử tiêm chủng",
+    "addVaccineHistory": "Thêm lịch sử tiêm chủng",
+    "editVaccineHistory": "Chỉnh sửa lịch sử tiêm chủng",
+    "deleteVaccineHistory": "Xóa lịch sử tiêm chủng",
+    "deleteVaccineHistoryConfirm": "Bạn có chắc chắn muốn xóa lịch sử tiêm chủng này không?",
+    "noVaccineHistory": "Chưa có lịch sử tiêm chủng",
+    "errorLoadingVaccineHistory": "Lỗi khi tải lịch sử tiêm chủng",
+    "vaccineHistoryDeleteSuccess": "Xóa lịch sử tiêm chủng thành công",
+    "vaccineHistoryDeleteError": "Không thể xóa lịch sử tiêm chủng",
+    "vaccineDate": "Ngày",
+    "vaccineDescription": "Mô tả",
+    "brand" : "Thương hiệu",
+    "place" : "Địa chỉ",
+    "price" : "Giá"
 } 

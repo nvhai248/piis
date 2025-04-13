@@ -4,13 +4,13 @@ import '../models/pet.dart';
 import '../models/service.dart';
 import '../models/plan.dart';
 import '../models/pet_care.dart';
+import '../models/vaccine_history.dart';
+import '../utils/constants.dart';
 
 class PetService {
   final SupabaseClient supabase;
 
   PetService({required this.supabase});
-
-  static const String _table = 'pets';
 
   // Get all pets for the current user
   Future<List<Pet>> getUserPets() async {
@@ -19,7 +19,7 @@ class PetService {
       if (userId == null) throw Exception('User not authenticated');
 
       final response = await supabase
-          .from(_table)
+          .from(TableName.petTable)
           .select()
           .eq('user_id', userId)
           .eq('status', PetStatus.ACTIVE.name)
@@ -36,7 +36,7 @@ class PetService {
   Future<Pet?> getPet(String id) async {
     try {
       final response = await supabase
-          .from(_table)
+          .from(TableName.petTable)
           .select()
           .eq('id', id)
           .single();
@@ -83,7 +83,7 @@ class PetService {
       };
 
       final response = await supabase
-          .from(_table)
+          .from(TableName.petTable)
           .insert(petData)
           .select()
           .single();
@@ -132,7 +132,7 @@ class PetService {
       };
 
       final response = await supabase
-          .from(_table)
+          .from(TableName.petTable)
           .update(updateData)
           .eq('id', id)
           .eq('user_id', userId) // Ensure user owns the pet
@@ -153,7 +153,7 @@ class PetService {
       if (userId == null) throw Exception('User not authenticated');
 
       await supabase
-          .from(_table)
+          .from(TableName.petTable)
           .update({'status': PetStatus.PASS_AWAY.name})
           .eq('id', id)
           .eq('user_id', userId); // Ensure user owns the pet
@@ -217,7 +217,7 @@ class PetService {
     if (userId == null) throw Exception('User not authenticated');
 
     return supabase
-        .from(_table)
+        .from(TableName.petTable)
         .stream(primaryKey: ['id'])
         .map((event) => event
             .where((pet) => 

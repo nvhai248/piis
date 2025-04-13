@@ -134,5 +134,20 @@
     "retry": "Retry",
     "viewDetails": "View pet details",
     "errorLoadingPets": "Error loading pets",
-    "tapToRetry": "Tap to retry"
+    "tapToRetry": "Tap to retry",
+    
+    "vaccineHistory": "Vaccine History",
+    "addVaccineHistory": "Add Vaccine History",
+    "editVaccineHistory": "Edit Vaccine History",
+    "deleteVaccineHistory": "Delete Vaccine History",
+    "deleteVaccineHistoryConfirm": "Are you sure you want to delete this vaccine history?",
+    "noVaccineHistory": "No vaccine history yet",
+    "errorLoadingVaccineHistory": "Error loading vaccine history",
+    "vaccineHistoryDeleteSuccess": "Vaccine history deleted successfully",
+    "vaccineHistoryDeleteError": "Failed to delete vaccine history",
+    "vaccineDate": "Date",
+    "vaccineDescription": "Description",
+    "brand" : "Brand",
+    "place" : "Place",
+    "price" : "Price"
 } 

@@ -14,6 +14,11 @@ class AppColors {
   static const trackingBg = Color(0xFFFFEBEE);
 }
 
+class TableName {
+  static const String petTable = 'pets';
+  static const String vaccineHistoryTable = 'vaccine_histories';
+}
+
 class AppStyles {
   static const titleLarge = TextStyle(
     fontSize: 24,

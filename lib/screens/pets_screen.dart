@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:provider/provider.dart';
 import '../models/pet.dart';
 import '../services/pet_service.dart';
 import 'pets/pet_form_screen.dart';
@@ -45,9 +46,13 @@ class _PetsScreenState extends State<PetsScreen> {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PetDetailsScreen(
-          pet: pet,
-          onPetUpdated: _initPetsStream,
+        builder: (context) => Provider(
+          create: (_) => PetService(supabase: context.read<SupabaseClient>()),
+          dispose: (_, service) {},
+          child: PetDetailsScreen(
+            pet: pet,
+            onPetUpdated: _initPetsStream,
+          ),
         ),
       ),
     );
