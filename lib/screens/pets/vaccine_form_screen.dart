@@ -5,15 +5,18 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../models/vaccine_history.dart';
 import '../../services/vaccine_service.dart';
 import '../../utils/message_utils.dart';
+import 'package:uuid/uuid.dart';
 
 class VaccineFormScreen extends StatefulWidget {
   final String petId;
   final VaccineHistory? vaccineHistory;
+  final Function(VaccineHistory)? onVaccineUpdated;
 
   const VaccineFormScreen({
     Key? key,
     required this.petId,
     this.vaccineHistory,
+    this.onVaccineUpdated,
   }) : super(key: key);
 
   @override
@@ -39,17 +42,19 @@ class _VaccineFormScreenState extends State<VaccineFormScreen> {
   @override
   void initState() {
     super.initState();
-    if (widget.vaccineHistory != null) {
-      _nameController.text = widget.vaccineHistory!.name;
-      _brandController.text = widget.vaccineHistory!.brand as String;
-      _descriptionController.text = widget.vaccineHistory!.description as String;
-      _quantityController.text = widget.vaccineHistory!.quantity.toString();
-      _priceController.text = widget.vaccineHistory!.price.toString();
-      _placeController.text = widget.vaccineHistory!.place as String;
-      _reminderTimeController.text = widget.vaccineHistory!.reminderTime?.toString() ?? '';
-      _dateOfVaccine = widget.vaccineHistory!.dateOfVaccine;
-      _selectedType = widget.vaccineHistory!.type;
-      _selectedRecordedBy = widget.vaccineHistory!.recordedBy;
+    final history = widget.vaccineHistory;
+
+    if (history != null) {
+      _nameController.text = history.name;
+      _brandController.text = history.brand ?? '';
+      _descriptionController.text = history.description ?? '';
+      _quantityController.text = history.quantity.toString();
+      _priceController.text = history.price.toString();
+      _placeController.text = history.place ?? '';
+      _reminderTimeController.text = history.reminderTime?.toString() ?? '';
+      _dateOfVaccine = history.dateOfVaccine;
+      _selectedType = history.type;
+      _selectedRecordedBy = history.recordedBy;
     }
   }
 
@@ -66,6 +71,7 @@ class _VaccineFormScreenState extends State<VaccineFormScreen> {
   }
 
   Future<void> _selectDate() async {
+    final l10n = AppLocalizations.of(context)!;
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: _dateOfVaccine,
@@ -89,14 +95,14 @@ class _VaccineFormScreenState extends State<VaccineFormScreen> {
       final now = DateTime.now();
 
       final vaccine = VaccineHistory(
-        id: widget.vaccineHistory?.id as String,
+        id: widget.vaccineHistory?.id ?? const Uuid().v4(),
         name: _nameController.text,
         dateOfVaccine: _dateOfVaccine,
-        brand: _brandController.text,
-        description: _descriptionController.text,
+        brand: _brandController.text.isEmpty ? null : _brandController.text,
+        description: _descriptionController.text.isEmpty ? null : _descriptionController.text,
         quantity: int.parse(_quantityController.text),
         price: int.parse(_priceController.text),
-        place: _placeController.text,
+        place: _placeController.text.isEmpty ? null : _placeController.text,
         petId: widget.petId,
         type: _selectedType,
         recordedBy: _selectedRecordedBy,
@@ -105,7 +111,7 @@ class _VaccineFormScreenState extends State<VaccineFormScreen> {
             : null,
         createdAt: widget.vaccineHistory?.createdAt ?? now,
         updatedAt: now,
-        status: widget.vaccineHistory?.status ?? VaccineStatus.upcomming,
+        status: widget.vaccineHistory?.status ?? VaccineStatus.upcoming,
       );
 
       final VaccineHistory updatedVaccine = widget.vaccineHistory != null
@@ -113,20 +119,24 @@ class _VaccineFormScreenState extends State<VaccineFormScreen> {
           : await _vaccineService.createVaccineHistory(vaccine);
 
       if (mounted) {
+        final l10n = AppLocalizations.of(context)!;
         MessageUtils.showMessage(
           context,
           message: widget.vaccineHistory != null
-              ? 'Vaccine history updated successfully'
-              : 'Vaccine history created successfully',
+              ? l10n.vaccineHistoryUpdateSuccess
+              : l10n.vaccineHistoryCreateSuccess,
           type: MessageType.success,
         );
-        Navigator.pop(context, updatedVaccine);
+        Navigator.pop(context);
       }
     } catch (error) {
       if (mounted) {
+        final l10n = AppLocalizations.of(context)!;
         MessageUtils.showMessage(
           context,
-          message: 'Failed to ${widget.vaccineHistory != null ? 'update' : 'create'} vaccine history',
+          message: widget.vaccineHistory != null
+              ? l10n.vaccineHistoryUpdateError
+              : l10n.vaccineHistoryCreateError,
           type: MessageType.error,
         );
       }
@@ -144,7 +154,12 @@ class _VaccineFormScreenState extends State<VaccineFormScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.vaccineHistory != null ? 'Edit Vaccine' : 'Add Vaccine'),
+        title: Text(
+          widget.vaccineHistory != null ? l10n.editVaccine : l10n.addVaccine,
+          style: theme.textTheme.titleLarge?.copyWith(
+            color: theme.colorScheme.onSurface,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -155,13 +170,13 @@ class _VaccineFormScreenState extends State<VaccineFormScreen> {
             children: [
               TextFormField(
                 controller: _nameController,
-                decoration: const InputDecoration(
-                  labelText: 'Vaccine Name',
-                  prefixIcon: Icon(Icons.medical_services),
+                decoration: InputDecoration(
+                  labelText: l10n.vaccineName,
+                  prefixIcon: Icon(Icons.medical_services, color: theme.colorScheme.primary),
                 ),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Please enter vaccine name';
+                    return l10n.pleaseEnterVaccineName;
                   }
                   return null;
                 },
@@ -170,25 +185,28 @@ class _VaccineFormScreenState extends State<VaccineFormScreen> {
 
               // Date of Vaccine
               ListTile(
-                leading: const Icon(Icons.calendar_today),
+                leading: Icon(Icons.calendar_today, color: theme.colorScheme.primary),
                 title: Text(
-                  '${_dateOfVaccine.year}-${_dateOfVaccine.month}-${_dateOfVaccine.day}',
+                  '${_dateOfVaccine.year}-${_dateOfVaccine.month.toString().padLeft(2, '0')}-${_dateOfVaccine.day.toString().padLeft(2, '0')}',
+                  style: theme.textTheme.bodyLarge,
                 ),
-                subtitle: const Text('Date of Vaccine'),
-                trailing: const Icon(Icons.chevron_right),
+                subtitle: Text(l10n.dateOfVaccine, style: theme.textTheme.bodyMedium),
+                trailing: Icon(Icons.chevron_right, color: theme.colorScheme.onSurfaceVariant),
                 onTap: _selectDate,
+                tileColor: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
               ),
               const SizedBox(height: 16),
 
               TextFormField(
                 controller: _brandController,
-                decoration: const InputDecoration(
-                  labelText: 'Brand',
-                  prefixIcon: Icon(Icons.business),
+                decoration: InputDecoration(
+                  labelText: l10n.brand,
+                  prefixIcon: Icon(Icons.business, color: theme.colorScheme.primary),
                 ),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Please enter brand';
+                    return l10n.pleaseEnterBrand;
                   }
                   return null;
                 },
@@ -197,9 +215,10 @@ class _VaccineFormScreenState extends State<VaccineFormScreen> {
 
               TextFormField(
                 controller: _descriptionController,
-                decoration: const InputDecoration(
-                  labelText: 'Description',
-                  prefixIcon: Icon(Icons.description),
+                decoration: InputDecoration(
+                  labelText: l10n.description,
+                  prefixIcon: Icon(Icons.description, color: theme.colorScheme.primary),
+                  alignLabelWithHint: true,
                 ),
                 maxLines: 3,
               ),
@@ -207,18 +226,18 @@ class _VaccineFormScreenState extends State<VaccineFormScreen> {
 
               TextFormField(
                 controller: _quantityController,
-                decoration: const InputDecoration(
-                  labelText: 'Quantity',
-                  prefixIcon: Icon(Icons.numbers),
+                decoration: InputDecoration(
+                  labelText: l10n.quantity,
+                  prefixIcon: Icon(Icons.numbers, color: theme.colorScheme.primary),
                 ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Please enter quantity';
+                    return l10n.pleaseEnterQuantity;
                   }
                   if (int.tryParse(value) == null || int.parse(value) <= 0) {
-                    return 'Please enter a valid quantity';
+                    return l10n.pleaseEnterValidQuantity;
                   }
                   return null;
                 },
@@ -227,18 +246,18 @@ class _VaccineFormScreenState extends State<VaccineFormScreen> {
 
               TextFormField(
                 controller: _priceController,
-                decoration: const InputDecoration(
-                  labelText: 'Price',
-                  prefixIcon: Icon(Icons.attach_money),
+                decoration: InputDecoration(
+                  labelText: l10n.price,
+                  prefixIcon: Icon(Icons.attach_money, color: theme.colorScheme.primary),
                 ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Please enter price';
+                    return l10n.pleaseEnterPrice;
                   }
                   if (int.tryParse(value) == null || int.parse(value) < 0) {
-                    return 'Please enter a valid price';
+                    return l10n.pleaseEnterValidPrice;
                   }
                   return null;
                 },
@@ -247,13 +266,13 @@ class _VaccineFormScreenState extends State<VaccineFormScreen> {
 
               TextFormField(
                 controller: _placeController,
-                decoration: const InputDecoration(
-                  labelText: 'Place',
-                  prefixIcon: Icon(Icons.place),
+                decoration: InputDecoration(
+                  labelText: l10n.place,
+                  prefixIcon: Icon(Icons.place, color: theme.colorScheme.primary),
                 ),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Please enter place';
+                    return l10n.pleaseEnterPlace;
                   }
                   return null;
                 },
@@ -262,14 +281,14 @@ class _VaccineFormScreenState extends State<VaccineFormScreen> {
 
               DropdownButtonFormField<VaccineType>(
                 value: _selectedType,
-                decoration: const InputDecoration(
-                  labelText: 'Vaccine Type',
-                  prefixIcon: Icon(Icons.category),
+                decoration: InputDecoration(
+                  labelText: l10n.vaccineType,
+                  prefixIcon: Icon(Icons.category, color: theme.colorScheme.primary),
                 ),
                 items: VaccineType.values.map((type) {
                   return DropdownMenuItem(
                     value: type,
-                    child: Text(type.name),
+                    child: Text(l10n.vaccineTypeValue(type.name)),
                   );
                 }).toList(),
                 onChanged: (VaccineType? value) {
@@ -284,14 +303,14 @@ class _VaccineFormScreenState extends State<VaccineFormScreen> {
 
               DropdownButtonFormField<RecordedBy>(
                 value: _selectedRecordedBy,
-                decoration: const InputDecoration(
-                  labelText: 'Recorded By',
-                  prefixIcon: Icon(Icons.person),
+                decoration: InputDecoration(
+                  labelText: l10n.recordedBy,
+                  prefixIcon: Icon(Icons.person, color: theme.colorScheme.primary),
                 ),
                 items: RecordedBy.values.map((type) {
                   return DropdownMenuItem(
                     value: type,
-                    child: Text(type.name),
+                    child: Text(l10n.recordedByValue(type.name)),
                   );
                 }).toList(),
                 onChanged: (RecordedBy? value) {
@@ -306,17 +325,17 @@ class _VaccineFormScreenState extends State<VaccineFormScreen> {
 
               TextFormField(
                 controller: _reminderTimeController,
-                decoration: const InputDecoration(
-                  labelText: 'Reminder Time (days)',
-                  prefixIcon: Icon(Icons.alarm),
-                  hintText: 'Optional',
+                decoration: InputDecoration(
+                  labelText: l10n.reminderTimeDays,
+                  prefixIcon: Icon(Icons.alarm, color: theme.colorScheme.primary),
+                  hintText: l10n.optional,
                 ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 validator: (value) {
                   if (value != null && value.isNotEmpty) {
                     if (int.tryParse(value) == null || int.parse(value) <= 0) {
-                      return 'Please enter a valid number of days';
+                      return l10n.pleaseEnterValidDays;
                     }
                   }
                   return null;
@@ -329,16 +348,18 @@ class _VaccineFormScreenState extends State<VaccineFormScreen> {
                 child: FilledButton(
                   onPressed: _isLoading ? null : _handleSubmit,
                   child: _isLoading
-                      ? const SizedBox(
+                      ? SizedBox(
                           height: 20,
                           width: 20,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              theme.colorScheme.onPrimary,
+                            ),
                           ),
                         )
                       : Text(
-                          widget.vaccineHistory != null ? 'Update Vaccine' : 'Add Vaccine',
+                          widget.vaccineHistory != null ? l10n.updateVaccine : l10n.addVaccine,
                         ),
                 ),
               ),

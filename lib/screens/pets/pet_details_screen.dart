@@ -11,7 +11,7 @@ import '../pets/vaccine_form_screen.dart';
 import '../../utils/message_utils.dart';
 import 'vaccine_section.dart';
 
-class PetDetailsScreen extends StatelessWidget {
+class PetDetailsScreen extends StatefulWidget {
   final Pet pet;
   final VoidCallback onPetUpdated;
 
@@ -20,6 +20,19 @@ class PetDetailsScreen extends StatelessWidget {
     required this.pet,
     required this.onPetUpdated,
   }) : super(key: key);
+
+  @override
+  State<PetDetailsScreen> createState() => _PetDetailsScreenState();
+}
+
+class _PetDetailsScreenState extends State<PetDetailsScreen> {
+  late final VaccineService _vaccineService;
+
+  @override
+  void initState() {
+    super.initState();
+    _vaccineService = VaccineService(Supabase.instance.client);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,20 +46,22 @@ class PetDetailsScreen extends StatelessWidget {
             supabase: Supabase.instance.client,
           ),
         ),
-        Provider<VaccineService>(
-          create: (context) => VaccineService(
-            Supabase.instance.client,
-          ),
+        Provider<VaccineService>.value(
+          value: _vaccineService,
+        ),
+        StreamProvider<List<VaccineHistory>>(
+          create: (_) => _vaccineService.streamPetVaccineHistories(widget.pet.id),
+          initialData: const [],
         ),
       ],
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            pet.name,
-            semanticsLabel: '${l10n.petName}: ${pet.name}',
+            widget.pet.name,
+            semanticsLabel: '${l10n.petName}: ${widget.pet.name}',
           ),
           actions: [
-            _EditPetButton(pet: pet, onPetUpdated: onPetUpdated),
+            _EditPetButton(pet: widget.pet, onPetUpdated: widget.onPetUpdated),
           ],
         ),
         body: SingleChildScrollView(
@@ -54,11 +69,11 @@ class PetDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _PetImage(pet: pet),
+              _PetImage(pet: widget.pet),
               const SizedBox(height: 24),
-              _PetInformation(pet: pet),
+              _PetInformation(pet: widget.pet),
               const SizedBox(height: 16),
-              _VaccineHistorySection(pet: pet),
+              _VaccineHistorySection(pet: widget.pet),
             ],
           ),
         ),
@@ -318,7 +333,9 @@ class _VaccineHistorySection extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => VaccineFormScreen(petId: pet.id),
+        builder: (context) => VaccineFormScreen(
+          petId: pet.id,
+        ),
       ),
     );
   }
@@ -333,42 +350,23 @@ class _VaccineHistoryList extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
+    final vaccineHistory = context.watch<List<VaccineHistory>>();
     final vaccineService = context.read<VaccineService>();
 
-    return StreamBuilder<List<VaccineHistory>>(
-      stream: vaccineService.streamPetVaccineHistories(pet.id),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Center(
-            child: Text(
-              l10n.errorLoadingVaccineHistory,
-              style: TextStyle(color: theme.colorScheme.error),
-            ),
-          );
-        }
+    if (context.watch<List<VaccineHistory>>().isEmpty) {
+      return const EmptyVaccineHistory();
+    }
 
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        final vaccineHistory = snapshot.data ?? [];
-
-        if (vaccineHistory.isEmpty) {
-          return const EmptyVaccineHistory();
-        }
-
-        return ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: vaccineHistory.length,
-          itemBuilder: (context, index) {
-            final vaccine = vaccineHistory[index];
-            return VaccineHistoryItem(
-              vaccine: vaccine,
-              onEdit: () => _editVaccine(context, vaccine),
-              onDelete: () => _deleteVaccine(context, vaccine.id),
-            );
-          },
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: vaccineHistory.length,
+      itemBuilder: (context, index) {
+        final vaccine = vaccineHistory[index];
+        return VaccineHistoryItem(
+          vaccine: vaccine,
+          onEdit: () => _editVaccine(context, vaccine),
+          onDelete: () => _deleteVaccine(context, vaccine.id),
         );
       },
     );

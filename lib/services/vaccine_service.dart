@@ -9,6 +9,20 @@ class VaccineService {
 
   VaccineService(this._client);
 
+  Map<String, dynamic> _prepareDataForDb(VaccineHistory vaccine) {
+    // Remove fields that are managed by the database
+    final data = vaccine.toJson();
+    data.remove('created_at');
+    data.remove('updated_at');
+    
+    // Ensure all dates are in ISO8601 format
+    if (data['date_of_vaccine'] != null) {
+      data['date_of_vaccine'] = DateTime.parse(data['date_of_vaccine']).toIso8601String();
+    }
+    
+    return data;
+  }
+
   Future<List<VaccineHistory>> getPetVaccineHistories(String petId) async {
     try {
       final response = await _client
@@ -62,9 +76,11 @@ class VaccineService {
 
   Future<VaccineHistory> createVaccineHistory(VaccineHistory vaccine) async {
     try {
+      debugPrint('Creating vaccine with data: ${_prepareDataForDb(vaccine)}');
+      
       final response = await _client
           .from(TableName.vaccineHistoryTable)
-          .insert(vaccine.toJson())
+          .insert(_prepareDataForDb(vaccine))
           .select()
           .single();
 
@@ -79,7 +95,7 @@ class VaccineService {
     try {
       final response = await _client
           .from(TableName.vaccineHistoryTable)
-          .update(vaccine.toJson())
+          .update(_prepareDataForDb(vaccine))
           .eq('id', vaccine.id)
           .select()
           .single();

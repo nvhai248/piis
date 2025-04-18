@@ -149,5 +149,56 @@
     "vaccineDescription": "Mô tả",
     "brand" : "Thương hiệu",
     "place" : "Địa chỉ",
-    "price" : "Giá"
+    "price" : "Giá",
+    "vaccineHistoryUpdateSuccess": "Cập nhật lịch sử tiêm phòng thành công.",
+    "vaccineHistoryCreateSuccess": "Tạo lịch sử tiêm phòng thành công.",
+    "vaccineHistoryUpdateError": "Cập nhật lịch sử tiêm phòng thất bại.",
+    "vaccineHistoryCreateError": "Tạo lịch sử tiêm phòng thất bại.",
+    "editVaccine": "Chỉnh sửa vaccine",
+    "addVaccine": "Thêm vaccine",
+    "vaccineName": "Tên vaccine",
+    "pleaseEnterVaccineName": "Vui lòng nhập tên vaccine",
+    "dateOfVaccine": "Ngày tiêm vaccine",
+    "pleaseEnterBrand": "Vui lòng nhập thương hiệu",
+    "description": "Mô tả",
+    "quantity": "Số lượng",
+    "pleaseEnterQuantity": "Vui lòng nhập số lượng",
+    "pleaseEnterValidQuantity": "Vui lòng nhập số lượng hợp lệ",
+    "pleaseEnterPrice": "Vui lòng nhập giá",
+    "pleaseEnterValidPrice": "Vui lòng nhập giá hợp lệ",
+    "pleaseEnterPlace": "Vui lòng nhập địa điểm",
+    "vaccineType": "Loại vaccine",
+    "vaccineTypeValue": "{type, select, ONE_TIME {Một lần} RECURRING {Định kỳ} other {Không xác định}}",
+    "@vaccineTypeValue": {
+        "placeholders": {
+            "type": {
+                "type": "String"
+            }
+        }
+    },
+    "recordedBy": "Người ghi nhận",
+    "recordedByValue": "{type, select, OWNER {Chủ sở hữu} VET {Bác sĩ thú y} other {Không xác định}}",
+    "@recordedByValue": {
+        "placeholders": {
+            "type": {
+                "type": "String"
+            }
+        }
+    },
+    "reminderTimeDays": "Thời gian nhắc nhở (ngày)",
+    "optional": "Tùy chọn",
+    "pleaseEnterValidDays": "Vui lòng nhập số ngày hợp lệ",
+    "updateVaccine": "Cập nhật vaccine",
+    "vaccineHistoryCreateSuccess": "Đã tạo lịch sử vaccine thành công",
+    "vaccineHistoryUpdateSuccess": "Đã cập nhật lịch sử vaccine thành công",
+    "vaccineHistoryCreateError": "Không thể tạo lịch sử vaccine",
+    "vaccineHistoryUpdateError": "Không thể cập nhật lịch sử vaccine",
+    "loadingProfile": "Đang tải hồ sơ...",
+    "errorLoadingProfile": "Lỗi khi tải hồ sơ",
+    "retry": "Thử lại",
+    "profilePicture": "Ảnh đại diện",
+    "profilePicturePlaceholder": "Ảnh đại diện mặc định",
+    "editProfile": "Chỉnh sửa hồ sơ",
+    "logoutConfirmation": "Bạn có chắc chắn muốn đăng xuất không?",
+    "logoutError": "Đăng xuất thất bại. Vui lòng thử lại."
 } 

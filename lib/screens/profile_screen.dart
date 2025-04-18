@@ -27,12 +27,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _handleLogout() async {
+    final l10n = AppLocalizations.of(context)!;
     try {
       await _authService.signOut();
       if (mounted) {
         MessageUtils.showMessage(
           context,
-          message: 'Logged out successfully',
+          message: l10n.logoutSuccess,
           type: MessageType.success,
         );
         Navigator.of(context).pushAndRemoveUntil(
@@ -44,7 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       if (mounted) {
         MessageUtils.showMessage(
           context,
-          message: 'Failed to logout. Please try again.',
+          message: l10n.logoutError,
           type: MessageType.error,
         );
       }
@@ -78,7 +79,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
         future: _profileFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CircularProgressIndicator(),
+                  const SizedBox(height: 16),
+                  Text(l10n.loadingProfile),
+                ],
+              ),
+            );
           }
 
           if (snapshot.hasError) {
@@ -87,7 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Error loading profile',
+                    l10n.errorLoadingProfile,
                     style: theme.textTheme.titleMedium,
                   ),
                   TextButton(
@@ -96,7 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         _profileFuture = _authService.getCurrentProfile();
                       });
                     },
-                    child: const Text('Retry'),
+                    child: Text(l10n.retry),
                   ),
                 ],
               ),
@@ -114,19 +124,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Stack(
                       children: [
-                        CircleAvatar(
-                          radius: 50,
-                          backgroundColor: theme.colorScheme.primary.withOpacity(0.1),
-                          backgroundImage: profile.avatarUrl != null
-                              ? NetworkImage(profile.avatarUrl!)
-                              : null,
-                          child: profile.avatarUrl == null
-                              ? Icon(
-                                  Icons.person,
-                                  size: 50,
-                                  color: theme.colorScheme.primary,
-                                )
-                              : null,
+                        Semantics(
+                          label: profile.avatarUrl != null
+                              ? l10n.profilePicture
+                              : l10n.profilePicturePlaceholder,
+                          child: CircleAvatar(
+                            radius: 50,
+                            backgroundColor: theme.colorScheme.primary.withOpacity(0.1),
+                            backgroundImage: profile.avatarUrl != null
+                                ? NetworkImage(profile.avatarUrl!)
+                                : null,
+                            child: profile.avatarUrl == null
+                                ? Icon(
+                                    Icons.person,
+                                    size: 50,
+                                    color: theme.colorScheme.primary,
+                                  )
+                                : null,
+                          ),
                         ),
                         Positioned(
                           right: 0,
@@ -140,6 +155,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 size: 18,
                               ),
                               color: theme.colorScheme.onPrimary,
+                              tooltip: l10n.editProfile,
                               onPressed: () => _navigateToEditProfile(profile),
                             ),
                           ),
@@ -204,14 +220,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             languageProvider.setLocale(newValue);
                           }
                         },
-                        items: const [
+                        items: [
                           DropdownMenuItem(
-                            value: Locale('en'),
-                            child: Text('English'),
+                            value: const Locale('en'),
+                            child: Text(l10n.english),
                           ),
                           DropdownMenuItem(
-                            value: Locale('vi'),
-                            child: Text('Tiếng Việt'),
+                            value: const Locale('vi'),
+                            child: Text(l10n.vietnamese),
                           ),
                         ],
                       ),
@@ -255,7 +271,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           context: context,
                           builder: (context) => AlertDialog(
                             title: Text(l10n.logout),
-                            content: const Text('Are you sure you want to logout?'),
+                            content: Text(l10n.logoutConfirmation),
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.pop(context),

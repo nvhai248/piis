@@ -149,5 +149,56 @@
     "vaccineDescription": "Description",
     "brand" : "Brand",
     "place" : "Place",
-    "price" : "Price"
+    "price" : "Price",
+    "vaccineHistoryUpdateSuccess": "Vaccine history updated successfully.",
+    "vaccineHistoryCreateSuccess": "Vaccine history created successfully.",
+    "vaccineHistoryUpdateError": "Failed to update vaccine history.",
+    "vaccineHistoryCreateError": "Failed to create vaccine history.",
+    "editVaccine": "Edit Vaccine",
+    "addVaccine": "Add Vaccine",
+    "vaccineName": "Vaccine Name",
+    "pleaseEnterVaccineName": "Please enter vaccine name",
+    "dateOfVaccine": "Date of Vaccine",
+    "pleaseEnterBrand": "Please enter brand",
+    "description": "Description",
+    "quantity": "Quantity",
+    "pleaseEnterQuantity": "Please enter quantity",
+    "pleaseEnterValidQuantity": "Please enter a valid quantity",
+    "pleaseEnterPrice": "Please enter price",
+    "pleaseEnterValidPrice": "Please enter a valid price",
+    "pleaseEnterPlace": "Please enter place",
+    "vaccineType": "Vaccine Type",
+    "vaccineTypeValue": "{type, select, ONE_TIME {One Time} RECURRING {Recurring} other {Unknown}}",
+    "@vaccineTypeValue": {
+        "placeholders": {
+            "type": {
+                "type": "String"
+            }
+        }
+    },
+    "recordedBy": "Recorded By",
+    "recordedByValue": "{type, select, OWNER {Owner} VET {Veterinarian} other {Unknown}}",
+    "@recordedByValue": {
+        "placeholders": {
+            "type": {
+                "type": "String"
+            }
+        }
+    },
+    "reminderTimeDays": "Reminder Time (days)",
+    "optional": "Optional",
+    "pleaseEnterValidDays": "Please enter a valid number of days",
+    "updateVaccine": "Update Vaccine",
+    "failLogin" : "Failed to logout. Please try again.",
+    "logoutSuccess" : "Logged out successfully",
+    "loadingProfile": "Loading profile...",
+    "errorLoadingProfile": "Error loading profile",
+    "retry": "Retry",
+    "profilePicture": "Profile picture",
+    "profilePicturePlaceholder": "Profile picture placeholder",
+    "editProfile": "Edit profile",
+    "english": "English",
+    "vietnamese": "Vietnamese",
+    "logoutConfirmation": "Are you sure you want to logout?",
+    "logoutError": "Failed to logout. Please try again."
 } 
