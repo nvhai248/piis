@@ -62,7 +62,9 @@ class _LoginScreenState extends State<LoginScreen> {
       if (mounted && user != null) {
         MessageUtils.showMessage(
           context,
-          message: 'Welcome back, ${user.userMetadata?['full_name']?.split(' ')[0] ?? 'User'}! 👋',
+          message: AppLocalizations.of(context)!.loginWelcomeBack(
+            user.userMetadata?['full_name']?.split(' ')[0] ?? 'User',
+          ),
           type: MessageType.success,
         );
       }
@@ -98,7 +100,9 @@ class _LoginScreenState extends State<LoginScreen> {
       if (mounted && user != null) {
         MessageUtils.showMessage(
           context,
-          message: l10n.loginWelcomeBack(user.userMetadata?['full_name']?.split(' ')[0] ?? 'User'),
+          message: l10n.loginWelcomeBack(
+            user.userMetadata?['full_name']?.split(' ')[0] ?? 'User',
+          ),
           type: MessageType.success,
         );
       }
@@ -122,6 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final isDark = themeProvider.isDarkMode(context);
 
     return Scaffold(
       body: SafeArea(
@@ -144,22 +149,31 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: child,
                       );
                     },
-                    child: Icon(
-                      Icons.pets,
-                      size: 80,
-                      color: theme.colorScheme.primary,
+                    child: Hero(
+                      tag: 'app_logo',
+                      child: Icon(
+                        Icons.pets,
+                        size: 80,
+                        color: theme.colorScheme.primary,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 24),
                   
                   // App Title
-                  Text(
-                    l10n.appTitle,
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: theme.colorScheme.primary,
+                  Hero(
+                    tag: 'app_title',
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Text(
+                        l10n.appTitle,
+                        style: theme.textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: theme.colorScheme.primary,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 48),
 
@@ -167,10 +181,36 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextFormField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       labelText: l10n.email,
-                      prefixIcon: const Icon(Icons.email_outlined),
+                      prefixIcon: Icon(
+                        Icons.email_outlined,
+                        color: theme.colorScheme.primary,
+                      ),
                       border: const OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: theme.colorScheme.outline,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: theme.colorScheme.primary,
+                          width: 2,
+                        ),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: theme.colorScheme.error,
+                        ),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: theme.colorScheme.error,
+                          width: 2,
+                        ),
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -188,14 +228,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextFormField(
                     controller: _passwordController,
                     obscureText: _obscurePassword,
+                    textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (_) => _handleLogin(),
                     decoration: InputDecoration(
                       labelText: l10n.password,
-                      prefixIcon: const Icon(Icons.lock_outlined),
+                      prefixIcon: Icon(
+                        Icons.lock_outlined,
+                        color: theme.colorScheme.primary,
+                      ),
                       suffixIcon: IconButton(
                         icon: Icon(
                           _obscurePassword
                               ? Icons.visibility_outlined
                               : Icons.visibility_off_outlined,
+                          color: theme.colorScheme.primary,
                         ),
                         onPressed: () {
                           setState(() {
@@ -204,6 +250,28 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       ),
                       border: const OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: theme.colorScheme.outline,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: theme.colorScheme.primary,
+                          width: 2,
+                        ),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: theme.colorScheme.error,
+                        ),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: theme.colorScheme.error,
+                          width: 2,
+                        ),
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -220,14 +288,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   // Login Button
                   FilledButton(
                     onPressed: _isLoading ? null : _handleLogin,
+                    style: FilledButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                    ),
                     child: _isLoading
-                        ? const SizedBox(
+                        ? SizedBox(
                             height: 20,
                             width: 20,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.white),
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                theme.colorScheme.onPrimary,
+                              ),
                             ),
                           )
                         : Text(l10n.login),
@@ -237,6 +309,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   // Google Sign In Button
                   OutlinedButton.icon(
                     onPressed: _isLoading ? null : _handleGoogleSignIn,
+                    style: OutlinedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      side: BorderSide(
+                        color: theme.colorScheme.outline,
+                      ),
+                    ),
                     icon: Image.asset(
                       'assets/images/google.png',
                       height: 24,
@@ -249,7 +327,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(l10n.noAccount),
+                      Text(
+                        l10n.noAccount,
+                        style: TextStyle(
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                      ),
                       TextButton(
                         onPressed: _isLoading
                             ? null
@@ -261,6 +344,33 @@ class _LoginScreenState extends State<LoginScreen> {
                                 );
                               },
                         child: Text(l10n.register),
+                      ),
+                    ],
+                  ),
+
+                  // Theme Toggle
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        isDark ? Icons.dark_mode : Icons.light_mode,
+                        color: theme.colorScheme.primary,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        isDark ? l10n.darkMode : l10n.lightMode,
+                        style: TextStyle(
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                      Switch(
+                        value: isDark,
+                        onChanged: (value) {
+                          themeProvider.setThemeMode(
+                            value ? ThemeMode.dark : ThemeMode.light,
+                          );
+                        },
                       ),
                     ],
                   ),

@@ -137,7 +137,7 @@ class _VaccineHistorySectionState extends State<VaccineHistorySection> {
         child: Dismissible(
           key: Key(vaccine.id),
           direction: DismissDirection.endToStart,
-          confirmDismiss: (direction) => _confirmDelete(context),
+          confirmDismiss: (direction) => showDeleteConfirmationDialog(context, vaccine),
           onDismissed: (direction) => _deleteVaccine(context, vaccine.id),
           background: Container(
             alignment: Alignment.centerRight,
@@ -154,32 +154,18 @@ class _VaccineHistorySectionState extends State<VaccineHistorySection> {
           child: VaccineListItem(
             vaccine: vaccine,
             onEdit: () => _editVaccine(context, vaccine),
-            onDelete: () => _deleteVaccine(context, vaccine.id),
+            onDelete: () => _showDeleteConfirmation(context, vaccine),
           ),
         ),
       ),
     );
   }
 
-  Future<bool> _confirmDelete(BuildContext context) async {
-    final l10n = AppLocalizations.of(context)!;
-    return await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.deleteVaccineHistory),
-        content: Text(l10n.deleteVaccineHistoryConfirm),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(l10n.cancel),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: Text(l10n.delete),
-          ),
-        ],
-      ),
-    ) ?? false;
+  Future<void> _showDeleteConfirmation(BuildContext context, VaccineHistory vaccine) async {
+    final confirmed = await showDeleteConfirmationDialog(context, vaccine);
+    if (confirmed && context.mounted) {
+      await _deleteVaccine(context, vaccine.id);
+    }
   }
 
   void _addVaccine(BuildContext context) {

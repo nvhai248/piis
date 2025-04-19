@@ -98,7 +98,7 @@ class VaccineListItem extends StatelessWidget {
             ),
             IconButton(
               icon: const Icon(Icons.delete),
-              onPressed: onDelete,
+              onPressed: () => _showDeleteConfirmation(context),
               tooltip: l10n.delete,
             ),
           ],
@@ -149,4 +149,140 @@ class VaccineListItem extends StatelessWidget {
       visualDensity: VisualDensity.compact,
     );
   }
+
+  Future<void> _showDeleteConfirmation(BuildContext context) async {
+    final confirmed = await showDeleteConfirmationDialog(context, vaccine);
+    if (confirmed) {
+      onDelete();
+    }
+  }
+}
+
+Future<bool> showDeleteConfirmationDialog(BuildContext context, VaccineHistory vaccine) async {
+  final l10n = AppLocalizations.of(context)!;
+  final theme = Theme.of(context);
+  
+  return await showDialog<bool>(
+    context: context,
+    builder: (context) => AlertDialog(
+      icon: Icon(
+        Icons.warning_rounded,
+        color: theme.colorScheme.error,
+        size: 32,
+      ),
+      title: Text(
+        l10n.deleteVaccineHistory,
+        style: theme.textTheme.titleLarge?.copyWith(
+          color: theme.colorScheme.onSurface,
+        ),
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.deleteVaccineHistoryConfirm,
+            style: theme.textTheme.bodyLarge?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+          const SizedBox(height: 16),
+          // Show vaccine details
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.errorContainer.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: theme.colorScheme.errorContainer,
+                width: 1,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  vaccine.name,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    color: theme.colorScheme.onSurface,
+                  ),
+                ),
+                if (vaccine.description?.isNotEmpty ?? false) ...[
+                  const SizedBox(height: 4),
+                  Text(
+                    vaccine.description!,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.calendar_today,
+                      size: 16,
+                      color: theme.colorScheme.primary,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      l10n.vaccineHistoryDate(
+                        vaccine.dateOfVaccine.year,
+                        vaccine.dateOfVaccine.month,
+                        vaccine.dateOfVaccine.day,
+                      ),
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
+                ),
+                if (vaccine.brand != null || vaccine.place != null) ...[
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.business,
+                        size: 16,
+                        color: theme.colorScheme.primary,
+                      ),
+                      const SizedBox(width: 4),
+                      Expanded(
+                        child: Text(
+                          [
+                            if (vaccine.brand != null) vaccine.brand,
+                            if (vaccine.place != null) vaccine.place,
+                          ].where((e) => e != null).join(' - '),
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context, false),
+          child: Text(
+            l10n.cancel,
+            style: TextStyle(color: theme.colorScheme.primary),
+          ),
+        ),
+        FilledButton.tonal(
+          style: FilledButton.styleFrom(
+            backgroundColor: theme.colorScheme.errorContainer,
+            foregroundColor: theme.colorScheme.onErrorContainer,
+          ),
+          onPressed: () => Navigator.pop(context, true),
+          child: Text(l10n.delete),
+        ),
+      ],
+    ),
+  ) ?? false;
 } 
