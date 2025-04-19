@@ -4,7 +4,6 @@ import '../models/pet.dart';
 import '../models/service.dart';
 import '../models/plan.dart';
 import '../models/pet_care.dart';
-import '../models/vaccine_history.dart';
 import '../utils/constants.dart';
 
 class PetService {

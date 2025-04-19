@@ -200,5 +200,70 @@
     "english": "English",
     "vietnamese": "Vietnamese",
     "logoutConfirmation": "Are you sure you want to logout?",
-    "logoutError": "Failed to logout. Please try again."
+    "logoutError": "Failed to logout. Please try again.",
+    "vaccineHistoryDate": "{year}-{month}-{day}",
+    "@vaccineHistoryDate": {
+        "description": "Format for displaying vaccine history date",
+        "placeholders": {
+            "year": {
+                "type": "int"
+            },
+            "month": {
+                "type": "int"
+            },
+            "day": {
+                "type": "int"
+            }
+        }
+    },
+    "vaccineHistoryDueDate": "Next due: {year}-{month}-{day}",
+    "@vaccineHistoryDueDate": {
+        "description": "Format for displaying vaccine history due date",
+        "placeholders": {
+            "year": {
+                "type": "int"
+            },
+            "month": {
+                "type": "int"
+            },
+            "day": {
+                "type": "int"
+            }
+        }
+    },
+    "editVaccineHistory": "Edit vaccine history",
+    "@editVaccineHistory": {
+        "description": "Label for edit vaccine history button"
+    },
+    "delete": "Delete",
+    "@delete": {
+        "description": "Label for delete button"
+    },
+    "noVaccineHistory": "No vaccine history",
+    "@noVaccineHistory": {
+        "description": "Message shown when there is no vaccine history"
+    },
+    "addVaccineHistory": "Add vaccine history",
+    "@addVaccineHistory": {
+        "description": "Label for add vaccine history button"
+    },
+    "deleteVaccineHistory": "Delete vaccine history",
+    "@deleteVaccineHistory": {
+        "description": "Title for delete vaccine history dialog"
+    },
+    "deleteVaccineHistoryConfirm": "Are you sure you want to delete this vaccine history?",
+    "@deleteVaccineHistoryConfirm": {
+        "description": "Confirmation message for deleting vaccine history"
+    },
+    "vaccineHistoryDeleteSuccess": "Vaccine history deleted successfully",
+    "@vaccineHistoryDeleteSuccess": {
+        "description": "Message shown when vaccine history is deleted successfully"
+    },
+    "vaccineHistoryDeleteError": "Failed to delete vaccine history",
+    "@vaccineHistoryDeleteError": {
+        "description": "Message shown when vaccine history deletion fails"
+    },
+    "vaccineStatusUpcoming": "Upcoming",
+    "vaccineStatusCompleted": "Completed",
+    "vaccineStatusOverdue": "Overdue"
 } 

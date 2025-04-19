@@ -120,6 +120,10 @@ class _VaccineFormScreenState extends State<VaccineFormScreen> {
 
       if (mounted) {
         final l10n = AppLocalizations.of(context)!;
+        
+        // Notify parent about the update
+        widget.onVaccineUpdated?.call(updatedVaccine);
+
         MessageUtils.showMessage(
           context,
           message: widget.vaccineHistory != null
@@ -131,6 +135,7 @@ class _VaccineFormScreenState extends State<VaccineFormScreen> {
       }
     } catch (error) {
       if (mounted) {
+        print(error);
         final l10n = AppLocalizations.of(context)!;
         MessageUtils.showMessage(
           context,

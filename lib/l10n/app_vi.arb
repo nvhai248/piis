@@ -138,12 +138,12 @@
     
     "vaccineHistory": "Lịch sử tiêm chủng",
     "addVaccineHistory": "Thêm lịch sử tiêm chủng",
-    "editVaccineHistory": "Chỉnh sửa lịch sử tiêm chủng",
+    "editVaccineHistory": "Sửa lịch sử tiêm chủng",
     "deleteVaccineHistory": "Xóa lịch sử tiêm chủng",
-    "deleteVaccineHistoryConfirm": "Bạn có chắc chắn muốn xóa lịch sử tiêm chủng này không?",
+    "deleteVaccineHistoryConfirm": "Bạn có chắc chắn muốn xóa lịch sử tiêm chủng này?",
     "noVaccineHistory": "Chưa có lịch sử tiêm chủng",
     "errorLoadingVaccineHistory": "Lỗi khi tải lịch sử tiêm chủng",
-    "vaccineHistoryDeleteSuccess": "Xóa lịch sử tiêm chủng thành công",
+    "vaccineHistoryDeleteSuccess": "Đã xóa lịch sử tiêm chủng thành công",
     "vaccineHistoryDeleteError": "Không thể xóa lịch sử tiêm chủng",
     "vaccineDate": "Ngày",
     "vaccineDescription": "Mô tả",
@@ -151,7 +151,7 @@
     "place" : "Địa chỉ",
     "price" : "Giá",
     "vaccineHistoryUpdateSuccess": "Cập nhật lịch sử tiêm phòng thành công.",
-    "vaccineHistoryCreateSuccess": "Tạo lịch sử tiêm phòng thành công.",
+    "vaccineHistoryCreateSuccess": "Đã tạo lịch sử vaccine thành công",
     "vaccineHistoryUpdateError": "Cập nhật lịch sử tiêm phòng thất bại.",
     "vaccineHistoryCreateError": "Tạo lịch sử tiêm phòng thất bại.",
     "editVaccine": "Chỉnh sửa vaccine",
@@ -189,9 +189,7 @@
     "optional": "Tùy chọn",
     "pleaseEnterValidDays": "Vui lòng nhập số ngày hợp lệ",
     "updateVaccine": "Cập nhật vaccine",
-    "vaccineHistoryCreateSuccess": "Đã tạo lịch sử vaccine thành công",
     "vaccineHistoryUpdateSuccess": "Đã cập nhật lịch sử vaccine thành công",
-    "vaccineHistoryCreateError": "Không thể tạo lịch sử vaccine",
     "vaccineHistoryUpdateError": "Không thể cập nhật lịch sử vaccine",
     "loadingProfile": "Đang tải hồ sơ...",
     "errorLoadingProfile": "Lỗi khi tải hồ sơ",
@@ -200,5 +198,88 @@
     "profilePicturePlaceholder": "Ảnh đại diện mặc định",
     "editProfile": "Chỉnh sửa hồ sơ",
     "logoutConfirmation": "Bạn có chắc chắn muốn đăng xuất không?",
-    "logoutError": "Đăng xuất thất bại. Vui lòng thử lại."
+    "logoutError": "Đăng xuất thất bại. Vui lòng thử lại.",
+    "vaccineHistoryDate": "{year}/{month}/{day}",
+    "@vaccineHistoryDate": {
+        "description": "Format for displaying vaccine history date",
+        "placeholders": {
+            "year": {
+                "type": "int"
+            },
+            "month": {
+                "type": "int"
+            },
+            "day": {
+                "type": "int"
+            }
+        }
+    },
+    "vaccineHistoryDueDate": "Tiêm nhắc: {year}/{month}/{day}",
+    "@vaccineHistoryDueDate": {
+        "description": "Format for displaying vaccine history due date",
+        "placeholders": {
+            "year": {
+                "type": "int"
+            },
+            "month": {
+                "type": "int"
+            },
+            "day": {
+                "type": "int"
+            }
+        }
+    },
+    "@editVaccineHistory": {
+        "description": "Label for edit vaccine history button"
+    },
+    "@delete": {
+        "description": "Label for delete button"
+    },
+    "@noVaccineHistory": {
+        "description": "Message shown when there is no vaccine history"
+    },
+    "@addVaccineHistory": {
+        "description": "Label for add vaccine history button"
+    },
+    "@deleteVaccineHistory": {
+        "description": "Title for delete vaccine history dialog"
+    },
+    "@deleteVaccineHistoryConfirm": {
+        "description": "Confirmation message for deleting vaccine history"
+    },
+    "@vaccineHistoryDeleteSuccess": {
+        "description": "Message shown when vaccine history is deleted successfully"
+    },
+    "@vaccineHistoryDeleteError": {
+        "description": "Message shown when vaccine history deletion fails"
+    },
+    "vaccineStatus": "Trạng thái",
+    "vaccineStatusUpcoming": "Sắp tới",
+    "vaccineStatusCompleted": "Đã hoàn thành",
+    "vaccineStatusOverdue": "Quá hạn",
+    "nextDueDate": "Ngày tiêm tiếp theo",
+    "pleaseSelectNextDueDate": "Vui lòng chọn ngày tiêm tiếp theo",
+    "vaccineStatusIndicator": "Chỉ báo trạng thái",
+    "vaccineStatusIndicatorUpcoming": "Sắp tới hạn tiêm",
+    "vaccineStatusIndicatorCompleted": "Đã tiêm đúng hạn",
+    "vaccineStatusIndicatorOverdue": "Đã quá hạn tiêm",
+    "daysUntilDue": "{days} ngày nữa",
+    "@daysUntilDue": {
+        "placeholders": {
+            "days": {
+                "type": "int"
+            }
+        }
+    },
+    "daysOverdue": "Quá hạn {days} ngày",
+    "@daysOverdue": {
+        "placeholders": {
+            "days": {
+                "type": "int"
+            }
+        }
+    },
+    "vaccineStatusUpcoming": "Sắp tới",
+    "vaccineStatusCompleted": "Đã hoàn thành",
+    "vaccineStatusOverdue": "Quá hạn"
 } 
