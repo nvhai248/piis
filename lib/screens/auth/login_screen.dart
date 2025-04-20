@@ -359,7 +359,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        isDark ? l10n.darkMode : l10n.lightMode,
+                        isDark ? l10n.darkTheme : l10n.lightTheme,
                         style: TextStyle(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),

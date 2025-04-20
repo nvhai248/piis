@@ -61,7 +61,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (mounted && user != null) {
         MessageUtils.showMessage(
           context,
-          message: AppLocalizations.of(context)!.registerWelcome(
+          message: AppLocalizations.of(context)!.welcomeMessage(
             _fullNameController.text.trim().split(' ')[0],
           ),
           type: MessageType.success,
@@ -372,7 +372,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        isDark ? l10n.darkMode : l10n.lightMode,
+                        isDark ? l10n.darkTheme : l10n.lightTheme,
                         style: TextStyle(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),

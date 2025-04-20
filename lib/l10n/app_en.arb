@@ -1,4 +1,5 @@
 {
+    "@@locale": "en",
     "appTitle": "Pet Care",
     "@appTitle": {
         "description": "The name of the application"
@@ -70,7 +71,7 @@
     "@signInWithGoogle": {
         "description": "Google sign in button text"
     },
-    "noAccount": "Don't have an account? ",
+    "noAccount": "Don't have an account?",
     "@noAccount": {
         "description": "No account text"
     },
@@ -102,24 +103,31 @@
     "@passwordsDoNotMatch": {
         "description": "Passwords do not match error message"
     },
-    "loginErrorInvalidCredentials": "The email or password you entered is incorrect. Please try again.",
-    "loginErrorNetwork": "Unable to connect to the server. Please check your internet connection.",
-    "loginErrorTooManyRequests": "Too many login attempts. Please wait a few minutes before trying again.",
-    "loginErrorInvalidEmail": "Please enter a valid email address.",
-    "loginErrorUserNotFound": "No account found with this email. Please check your email or create a new account.",
-    "loginErrorGoogleServices": "Unable to connect to Google services. Please check your internet connection.",
-    "loginErrorGoogleCancelled": "Google sign-in was cancelled. Please try again.",
-    "loginErrorGeneric": "Something went wrong. Please try again later.",
+    "loginErrorInvalidCredentials": "Invalid email or password",
+    "loginErrorNetwork": "Network error occurred",
+    "loginErrorTooManyRequests": "Too many attempts, please try again later",
+    "loginErrorInvalidEmail": "Invalid email format",
+    "loginErrorUserNotFound": "User not found",
+    "loginErrorGoogleServices": "Google services error",
+    "loginErrorGoogleCancelled": "Google sign in cancelled",
+    "loginErrorGeneric": "An error occurred",
     "loginConnectingGoogle": "Connecting to Google...",
-    "loginWelcomeBack": "Welcome back, {name}! 👋",
-    "confirmPasswordRequired" : "Please enter confirm password!",
-    "loginErrorUserExists" : "This user is already existed!",
-    "loginErrorWeakPassword" : "Password so week!",
-    "petBreed" : "Pet breed",
-    "editProfile" : "Edit profile",
-    "removePhoto" : "Remove photo",
-    "phoneNumber" : "Phone number",
-    "invalidPhoneNumber" : "Invalid phone number",
+    "loginWelcomeBack": "Welcome back, {name}! 🐾",
+    "@loginWelcomeBack": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "confirmPasswordRequired": "Please confirm your password",
+    "loginErrorUserExists": "Email already registered",
+    "loginErrorWeakPassword": "Password is too weak",
+    "petBreed": "Pet breed",
+    "editProfile": "Edit profile",
+    "removePhoto": "Remove photo",
+    "phoneNumber": "Phone number",
+    "invalidPhoneNumber": "Invalid phone number",
     "petUpdatedSuccess": "Pet updated successfully",
     "petCreatedSuccess": "Pet created successfully",
     "petUpdateError": "Failed to update pet. Please try again.",
@@ -141,15 +149,15 @@
     "editVaccineHistory": "Edit Vaccine History",
     "deleteVaccineHistory": "Delete Vaccine History",
     "deleteVaccineHistoryConfirm": "Are you sure you want to delete this vaccine history?",
-    "noVaccineHistory": "No vaccine history yet",
+    "noVaccineHistory": "No vaccine history",
     "errorLoadingVaccineHistory": "Error loading vaccine history",
     "vaccineHistoryDeleteSuccess": "Vaccine history deleted successfully",
     "vaccineHistoryDeleteError": "Failed to delete vaccine history",
     "vaccineDate": "Date",
     "vaccineDescription": "Description",
-    "brand" : "Brand",
-    "place" : "Place",
-    "price" : "Price",
+    "brand": "Brand",
+    "place": "Place",
+    "price": "Price",
     "vaccineHistoryUpdateSuccess": "Vaccine history updated successfully.",
     "vaccineHistoryCreateSuccess": "Vaccine history created successfully.",
     "vaccineHistoryUpdateError": "Failed to update vaccine history.",
@@ -189,18 +197,16 @@
     "optional": "Optional",
     "pleaseEnterValidDays": "Please enter a valid number of days",
     "updateVaccine": "Update Vaccine",
-    "failLogin" : "Failed to logout. Please try again.",
-    "logoutSuccess" : "Logged out successfully",
+    "failLogin": "Failed to logout. Please try again.",
+    "logoutSuccess": "Successfully logged out",
     "loadingProfile": "Loading profile...",
     "errorLoadingProfile": "Error loading profile",
     "retry": "Retry",
-    "profilePicture": "Profile picture",
-    "profilePicturePlaceholder": "Profile picture placeholder",
-    "editProfile": "Edit profile",
-    "english": "English",
-    "vietnamese": "Vietnamese",
+    "profilePicture": "Profile Picture",
+    "profilePicturePlaceholder": "Profile Picture Placeholder",
+    "editProfile": "Edit Profile",
     "logoutConfirmation": "Are you sure you want to logout?",
-    "logoutError": "Failed to logout. Please try again.",
+    "logoutError": "Error logging out",
     "vaccineHistoryDate": "{year}-{month}-{day}",
     "@vaccineHistoryDate": {
         "description": "Format for displaying vaccine history date",
@@ -265,5 +271,15 @@
     },
     "vaccineStatusUpcoming": "Upcoming",
     "vaccineStatusCompleted": "Completed",
-    "vaccineStatusOverdue": "Overdue"
+    "vaccineStatusOverdue": "Overdue",
+    "welcomeMessage": "Welcome to Pet Care, {name}! 🐾",
+    "@welcomeMessage": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "darkTheme" : "Dark Mode",
+    "lightTheme" : "Light Mode"
 } 

@@ -202,12 +202,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Column(
                   children: [
                     // Dark Mode Toggle
-                    SwitchListTile(
-                      title: Text(l10n.darkMode),
-                      value: themeProvider.isDarkMode,
-                      onChanged: (bool value) {
-                        themeProvider.toggleTheme();
-                      },
+                    ListTile(
+                      leading: Icon(
+                        themeProvider.isDarkMode(context)
+                            ? Icons.dark_mode
+                            : Icons.light_mode,
+                        color: theme.colorScheme.primary,
+                      ),
+                      title: Text(
+                        themeProvider.isDarkMode(context)
+                            ? l10n.darkTheme
+                            : l10n.lightTheme,
+                      ),
+                      trailing: Switch(
+                        value: themeProvider.isDarkMode(context),
+                        onChanged: (_) => themeProvider.toggleTheme(context),
+                      ),
                     ),
                     const Divider(),
                     // Language Selection

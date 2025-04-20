@@ -88,11 +88,11 @@ class _MainScreenState extends State<MainScreen> {
           // Theme toggle
           IconButton(
             icon: Icon(
-              themeProvider.isDarkMode ? Icons.light_mode : Icons.dark_mode,
+              themeProvider.isDarkMode(context) 
+                  ? Icons.dark_mode 
+                  : Icons.light_mode,
             ),
-            onPressed: () {
-              themeProvider.toggleTheme();
-            },
+            onPressed: () => themeProvider.toggleTheme(context),
           ),
         ],
       ),

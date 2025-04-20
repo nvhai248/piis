@@ -1,5 +1,6 @@
 {
-    "appTitle": "Ứng dụng Chăm sóc Thú cưng",
+    "@@locale": "vi",
+    "appTitle": "Chăm Sóc Thú Cưng",
     "@appTitle": {
         "description": "The name of the application"
     },
@@ -68,7 +69,7 @@
     "@signInWithGoogle": {
         "description": "Google sign in button text"
     },
-    "noAccount": "Chưa có tài khoản? ",
+    "noAccount": "Chưa có tài khoản?",
     "@noAccount": {
         "description": "No account text"
     },
@@ -76,7 +77,7 @@
     "@emailRequired": {
         "description": "Email required error message"
     },
-    "emailInvalid": "Vui lòng nhập email hợp lệ",
+    "emailInvalid": "Email không hợp lệ",
     "@emailInvalid": {
         "description": "Invalid email error message"
     },
@@ -92,7 +93,7 @@
     "@fullName": {
         "description": "Full name label"
     },
-    "fullNameRequired": "Vui lòng nhập họ và tên",
+    "fullNameRequired": "Vui lòng nhập họ tên",
     "@fullNameRequired": {
         "description": "Full name required error message"
     },
@@ -100,26 +101,41 @@
     "@passwordsDoNotMatch": {
         "description": "Passwords do not match error message"
     },
-    "loginErrorInvalidCredentials": "Email hoặc mật khẩu không chính xác. Vui lòng thử lại.",
-    "loginErrorNetwork": "Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối internet của bạn.",
-    "loginErrorTooManyRequests": "Quá nhiều lần đăng nhập thất bại. Vui lòng đợi vài phút trước khi thử lại.",
-    "loginErrorInvalidEmail": "Vui lòng nhập địa chỉ email hợp lệ.",
-    "loginErrorUserNotFound": "Không tìm thấy tài khoản với email này. Vui lòng kiểm tra email hoặc tạo tài khoản mới.",
-    "loginErrorGoogleServices": "Không thể kết nối đến dịch vụ Google. Vui lòng kiểm tra kết nối internet của bạn.",
-    "loginErrorGoogleCancelled": "Đăng nhập Google đã bị hủy. Vui lòng thử lại.",
-    "loginErrorGeneric": "Đã xảy ra lỗi. Vui lòng thử lại sau.",
+    "loginErrorInvalidCredentials": "Email hoặc mật khẩu không đúng",
+    "loginErrorNetwork": "Lỗi kết nối mạng",
+    "loginErrorTooManyRequests": "Quá nhiều lần thử, vui lòng thử lại sau",
+    "loginErrorInvalidEmail": "Email không hợp lệ",
+    "loginErrorUserNotFound": "Không tìm thấy người dùng",
+    "loginErrorGoogleServices": "Lỗi dịch vụ Google",
+    "loginErrorGoogleCancelled": "Đã hủy đăng nhập Google",
+    "loginErrorGeneric": "Đã xảy ra lỗi",
     "loginConnectingGoogle": "Đang kết nối với Google...",
-    "loginWelcomeBack": "Chào mừng trở lại, {name}! 👋",
-    "confirmPasswordRequired" : "Làm ơn nhập vào ô này!",
-    "loginErrorUserExists" : "Tài khoản này đã tồn tại!",
-    "loginErrorWeakPassword" : "Mật khẩu yếu!",
-    "petAge" : "Tuổi thú cưng",
-    "petWeight" : "Cân nặng thú cưng",
-    "petBreed" : "Giống loài",
-    "editProfile" : "Cập nhật thông tin",
-    "removePhoto" : "Xóa ảnh",
-    "phoneNumber" : "Số điện thoại",
-    "invalidPhoneNumber" : "Số điện thoại không hợp lệ",
+    "loginWelcomeBack": "Chào mừng trở lại, {name}! 🐾",
+    "@loginWelcomeBack": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "welcomeMessage": "Chào mừng đến với Pet Care, {name}! 🐾",
+    "@welcomeMessage": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "confirmPasswordRequired": "Vui lòng xác nhận mật khẩu",
+    "loginErrorUserExists": "Email đã được đăng ký",
+    "loginErrorWeakPassword": "Mật khẩu quá yếu",
+    "petAge": "Tuổi thú cưng",
+    "petWeight": "Cân nặng thú cưng",
+    "petBreed": "Giống loài",
+    "editProfile": "Chỉnh sửa hồ sơ",
+    "removePhoto": "Xóa ảnh",
+    "phoneNumber": "Số điện thoại",
+    "invalidPhoneNumber": "Số điện thoại không hợp lệ",
     "petUpdatedSuccess": "Cập nhật thú cưng thành công",
     "petCreatedSuccess": "Tạo thú cưng thành công",
     "petUpdateError": "Không thể cập nhật thú cưng. Vui lòng thử lại.",
@@ -147,9 +163,9 @@
     "vaccineHistoryDeleteError": "Không thể xóa lịch sử tiêm chủng",
     "vaccineDate": "Ngày",
     "vaccineDescription": "Mô tả",
-    "brand" : "Thương hiệu",
-    "place" : "Địa chỉ",
-    "price" : "Giá",
+    "brand": "Thương hiệu",
+    "place": "Địa chỉ",
+    "price": "Giá",
     "vaccineHistoryUpdateSuccess": "Cập nhật lịch sử tiêm phòng thành công.",
     "vaccineHistoryCreateSuccess": "Đã tạo lịch sử vaccine thành công",
     "vaccineHistoryUpdateError": "Cập nhật lịch sử tiêm phòng thất bại.",
@@ -197,8 +213,9 @@
     "profilePicture": "Ảnh đại diện",
     "profilePicturePlaceholder": "Ảnh đại diện mặc định",
     "editProfile": "Chỉnh sửa hồ sơ",
-    "logoutConfirmation": "Bạn có chắc chắn muốn đăng xuất không?",
-    "logoutError": "Đăng xuất thất bại. Vui lòng thử lại.",
+    "logoutConfirmation": "Bạn có chắc chắn muốn đăng xuất?",
+    "logoutError": "Lỗi khi đăng xuất",
+    "logoutSuccess": "Đăng xuất thành công",
     "vaccineHistoryDate": "{year}/{month}/{day}",
     "@vaccineHistoryDate": {
         "description": "Format for displaying vaccine history date",
@@ -281,5 +298,8 @@
     },
     "vaccineStatusUpcoming": "Sắp tới",
     "vaccineStatusCompleted": "Đã hoàn thành",
-    "vaccineStatusOverdue": "Quá hạn"
+    "vaccineStatusOverdue": "Quá hạn",
+    "darkTheme": "Giao diện tối",
+    "lightTheme": "Giao diện sáng",
+    "failLogin" : "Đăng nhập thất bại!"
 } 
